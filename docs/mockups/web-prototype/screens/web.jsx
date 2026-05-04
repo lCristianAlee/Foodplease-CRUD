@@ -246,7 +246,7 @@ function WebHome() {
       <WebHeader active="Menú"/>
 
       {/* HERO */}
-      <section style={{ position: 'relative', height: 480, padding: '0 32px', overflow: 'hidden' }}>
+      <section style={{ position: 'relative', minHeight: 580, padding: '40px 32px 60px', overflow: 'hidden' }}>
         <div style={{
           position: 'absolute', top: -100, left: '12%', width: 640, height: 640, borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(230,57,70,0.32) 0%, rgba(230,57,70,0.08) 40%, transparent 70%)',

@@ -112,4 +112,11 @@ Las decisiones arquitectónicas se documentaron en [`docs/adr/`](docs/adr/):
 
 ## Mockups
 
-Las pantallas de la app móvil, app del repartidor y web pública están en [`docs/mockups/`](docs/mockups/).
+Las pantallas están publicadas en GitHub Pages para revisión sin necesidad de clonar el repositorio:
+
+- **App móvil del cliente:** https://lcristianalee.github.io/Foodplease-CRUD/mockups/mobile-prototype/
+- **App móvil del repartidor:** https://lcristianalee.github.io/Foodplease-CRUD/mockups/driver-prototype/
+- **Web pública (escritorio):** https://lcristianalee.github.io/Foodplease-CRUD/mockups/web-prototype/
+
+El código fuente de cada prototipo está en [`docs/mockups/`](docs/mockups/).
+También se pueden abrir localmente sirviéndolos con `python -m http.server` desde esa carpeta.
