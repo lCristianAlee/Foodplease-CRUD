@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>FoodPlease — Driver App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; background: #0F0F12; font-family: 'Inter', -apple-system, system-ui, sans-serif; -webkit-font-smoothing: antialiased; color: #fff; }
+  #root { height: 100vh; }
+  ::-webkit-scrollbar { width: 0; height: 0; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="screens/icons.jsx"></script>
+<script type="text/babel" src="screens/shared.jsx"></script>
+<script type="text/babel" src="screens/auth.jsx"></script>
+<script type="text/babel" src="screens/home.jsx"></script>
+<script type="text/babel" src="screens/detail.jsx"></script>
+<script type="text/babel" src="screens/cart.jsx"></script>
+<script type="text/babel" src="screens/tracking.jsx"></script>
+<script type="text/babel" src="screens/profile.jsx"></script>
+<script type="text/babel" src="screens/driver.jsx"></script>
+<script type="text/babel">
+function PhoneFrame({ children }) {
+  return (
+    <div style={{
+      width: 390, height: 844, borderRadius: 44, overflow: 'hidden', background: '#000',
+      boxShadow: '0 30px 60px rgba(0,0,0,0.35), 0 0 0 10px #1a1a1f, 0 0 0 12px #2a2a32',
+    }}>{children}</div>
+  );
+}
+
+function DriverApp({ start = 'login' }) {
+  const [screen, setScreen] = React.useState(start);
+  const screens = {
+    login: <DriverLogin onConnect={() => setScreen('incoming')}/>,
+    incoming: <DriverIncoming
+      onAccept={() => setScreen('route')}
+      onReject={() => setScreen('earnings')}
+    />,
+    route: <DriverRoute onDelivered={() => setScreen('earnings')}/>,
+    earnings: <DriverEarnings onIncoming={() => setScreen('incoming')}/>,
+  };
+  return <PhoneFrame>{screens[screen]}</PhoneFrame>;
+}
+
+function App() {
+  return (
+    <DesignCanvas>
+      <DCSection id="driver" title="FoodPlease — App del Repartidor"
+        subtitle="iPhone 14 · 390×844 · prototipo navegable · R1→R2→R3→R4 conectado">
+        <DCArtboard id="r1" label="R1 · Login del repartidor" width={390} height={844}>
+          <DriverApp start="login"/>
+        </DCArtboard>
+        <DCArtboard id="r2" label="R2 · Pedido entrante" width={390} height={844}>
+          <DriverApp start="incoming"/>
+        </DCArtboard>
+        <DCArtboard id="r3" label="R3 · Ruta activa" width={390} height={844}>
+          <DriverApp start="route"/>
+        </DCArtboard>
+        <DCArtboard id="r4" label="R4 · Resumen del día" width={390} height={844}>
+          <DriverApp start="earnings"/>
+        </DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

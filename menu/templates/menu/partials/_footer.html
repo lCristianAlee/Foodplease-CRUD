@@ -1,0 +1,42 @@
+{# Footer institucional con 4 columnas. #}
+<footer class="site-footer">
+    <div class="site-footer__inner">
+        <div class="site-footer__cols">
+            <div>
+                <a href="{% url 'menu:lista' %}" class="site-footer__brand">
+                    {% include 'menu/partials/_brand_logo.html' %}
+                </a>
+                <p class="site-footer__tagline">
+                    Tu menú favorito, siempre fresco.
+                </p>
+            </div>
+            <div>
+                <div class="site-footer__col-title">Producto</div>
+                <div class="site-footer__links">
+                    <a href="{% url 'menu:lista' %}">Menú</a>
+                    <a href="#descargar">App móvil</a>
+                    <a href="#sucursales">Sucursales</a>
+                </div>
+            </div>
+            <div>
+                <div class="site-footer__col-title">Empresa</div>
+                <div class="site-footer__links">
+                    <a href="#nosotros">Sobre nosotros</a>
+                    <a href="#trabaja-con-nosotros">Trabaja con nosotros</a>
+                    <a href="#contacto">Contacto</a>
+                </div>
+            </div>
+            <div>
+                <div class="site-footer__col-title">Legal</div>
+                <div class="site-footer__links">
+                    <a href="#terminos">Términos y condiciones</a>
+                    <a href="#privacidad">Política de privacidad</a>
+                </div>
+            </div>
+        </div>
+        <div class="site-footer__bottom">
+            <span>© {% now "Y" %} FoodPlease. Todos los derechos reservados.</span>
+            <span>Hecho en Chile</span>
+        </div>
+    </div>
+</footer>

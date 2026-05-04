@@ -1,0 +1,70 @@
+{% extends 'menu/base.html' %}
+{% load menu_extras %}
+
+{% block title %}{{ producto.nombre }} — FoodPlease{% endblock %}
+
+{% block content %}
+    <nav class="breadcrumb" aria-label="Migas de pan">
+        <div class="breadcrumb__inner">
+            <a href="{% url 'menu:lista' %}">Inicio</a>
+            <span class="breadcrumb__sep" aria-hidden="true">›</span>
+            <a href="{% url 'menu:lista' %}">Menú</a>
+            <span class="breadcrumb__sep" aria-hidden="true">›</span>
+            <span class="breadcrumb__current">{{ producto.nombre }}</span>
+        </div>
+    </nav>
+
+    <section class="detail">
+        <div class="detail__inner">
+            <div>
+                {% include 'menu/partials/_dish_image.html' with producto=producto extra_class='dish-image--hero' %}
+            </div>
+
+            <div>
+                {% include 'menu/partials/_badge_disponibilidad.html' with producto=producto size='lg' %}
+
+                <h1 class="detail__title">{{ producto.nombre }}</h1>
+                <div class="detail__price">${{ producto.precio|precio_clp }}</div>
+
+                <div class="detail__section">
+                    <div class="detail__section-title">Descripción</div>
+                    <p class="detail__desc">
+                        {{ producto.descripcion|default:"Plato preparado con ingredientes frescos seleccionados, listo para llegar caliente a tu mesa." }}
+                    </p>
+                </div>
+
+                <div class="detail__promo">
+                    <div>
+                        <div class="detail__promo-title">Pídelo desde nuestra app móvil</div>
+                        <div class="detail__promo-sub">Sigue tu pedido en tiempo real.</div>
+                    </div>
+                    <div class="detail__promo-buttons">
+                        {% include 'menu/partials/_store_buttons.html' %}
+                    </div>
+                </div>
+
+                <a href="{% url 'menu:lista' %}" class="btn btn--secondary detail__back">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                        <path d="M9 3L5 7l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Volver al menú
+                </a>
+            </div>
+        </div>
+    </section>
+
+    {% if relacionados %}
+        <section class="section section--related" aria-labelledby="relacionados-title">
+            <div class="section__inner">
+                <h2 id="relacionados-title" class="menu-header__title">También te puede gustar</h2>
+                <div class="menu-grid menu-grid--3 menu-grid--spaced">
+                    {% for relacionado in relacionados %}
+                        {% include 'menu/partials/_dish_card.html' with producto=relacionado compact=True %}
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {% include 'menu/partials/_cta_band.html' %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{# Badge de disponibilidad. Acepta var `producto` y opcional `size` ('lg'). #}
+{% if producto.disponible %}
+    <span class="badge badge--available {% if size == 'lg' %}badge--lg{% endif %}">
+        <span class="badge__dot" aria-hidden="true"></span>
+        Disponible{% if size == 'lg' %} para pedido{% endif %}
+    </span>
+{% else %}
+    <span class="badge badge--unavailable {% if size == 'lg' %}badge--lg{% endif %}">
+        <span class="badge__dot" aria-hidden="true"></span>
+        Agotado
+    </span>
+{% endif %}

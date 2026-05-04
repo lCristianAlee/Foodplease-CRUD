@@ -1,0 +1,87 @@
+{% extends 'menu/base.html' %}
+
+{% block title %}Menú — FoodPlease{% endblock %}
+
+{% block content %}
+    <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__glow" aria-hidden="true"></div>
+        <div class="hero__inner">
+            <div>
+                <div class="hero__pill">
+                    <span class="hero__pill-dot" aria-hidden="true"></span>
+                    Cocina abierta · 11:00 — 23:00
+                </div>
+                <h1 id="hero-title" class="hero__title">
+                    Tu menú favorito,<br>siempre <span class="hero__title-accent">fresco.</span>
+                </h1>
+                <p class="hero__subtitle">
+                    Explora nuestra carta completa, conoce los ingredientes y haz tu pedido desde la app móvil de FoodPlease.
+                </p>
+                <div class="hero__cta">
+                    <a href="#nuestro-menu" class="btn btn--primary btn--lg">Ver menú →</a>
+                    <a href="#descargar" class="btn btn--secondary btn--lg">Descargar app</a>
+                </div>
+            </div>
+            <div class="hero__visual">
+                <div class="hero-card" aria-hidden="true">
+                    <div>
+                        <div class="hero-card__dot">
+                            <svg width="28" height="28" viewBox="0 0 64 64" fill="none">
+                                <path d="M22 6v22a4 4 0 0 0 4 4h0v26a3 3 0 0 0 6 0V32h0a4 4 0 0 0 4-4V6"
+                                      stroke="#E63946" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M22 6v14M28 6v14M34 6v14" stroke="#E63946" stroke-width="3" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div class="hero-card__title">Pide desde<br>tu celular.</div>
+                        <p class="hero-card__caption">App disponible en iOS y Android.</p>
+                    </div>
+                    <div class="hero-card__bottom">
+                        <span class="hero__pill-dot"></span>
+                        Seguimiento en tiempo real
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--top" aria-label="Categorías del menú">
+        <div class="section__inner">
+            <div class="chips">
+                <button type="button" class="chip is-active">Todos</button>
+                <button type="button" class="chip">Pastas</button>
+                <button type="button" class="chip">Carnes</button>
+                <button type="button" class="chip">Pescados</button>
+                <button type="button" class="chip">Bebidas</button>
+                <button type="button" class="chip">Postres</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--gap" id="nuestro-menu" aria-labelledby="menu-title">
+        <div class="section__inner">
+            <header class="menu-header">
+                <div>
+                    <h2 id="menu-title" class="menu-header__title">Nuestro menú</h2>
+                    <p class="menu-header__hint">
+                        {{ productos|length }} plato{{ productos|length|pluralize:"s" }} preparado{{ productos|length|pluralize:"s" }} con ingredientes seleccionados.
+                    </p>
+                </div>
+                <div class="menu-header__aside">Pídelos desde la app</div>
+            </header>
+
+            {% if productos %}
+                <div class="menu-grid">
+                    {% for producto in productos %}
+                        {% include 'menu/partials/_dish_card.html' with producto=producto %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    Aún no hay platos registrados en el menú.
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    {% include 'menu/partials/_cta_band.html' %}
+{% endblock %}

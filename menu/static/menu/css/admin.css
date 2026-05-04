@@ -1,0 +1,635 @@
+/* Overrides de Jazzmin para alinear el admin con la marca FoodPlease.
+   Solo afecta presentacion (paleta, tipografia, bordes y sombras).
+   No modifica layout ni controles del admin de Django para preservar
+   accesibilidad y compatibilidad con futuras actualizaciones. */
+
+:root {
+    --fp-bg: #0F0F12;
+    --fp-card: #1A1A1F;
+    --fp-card-elev: #22222A;
+    --fp-border: rgba(255, 255, 255, 0.08);
+    --fp-border-strong: rgba(255, 255, 255, 0.16);
+    --fp-text: #FFFFFF;
+    --fp-text-muted: #9A9AA0;
+    --fp-accent: #E63946;
+    --fp-accent-hover: #F04A57;
+    --fp-success: #2ECC71;
+}
+
+/* ----- Tipografia global ----- */
+body,
+.app-sidebar,
+.app-header,
+.app-main,
+.app-content,
+.app-content-header,
+.app-footer,
+.modal-content,
+.dropdown-menu,
+input, select, textarea, button {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ----- Fondos base ----- */
+body,
+.app-wrapper,
+.app-main,
+.app-content {
+    background-color: var(--fp-bg) !important;
+    color: var(--fp-text);
+}
+
+/* ----- Sidebar (AdminLTE 4) ----- */
+.app-sidebar {
+    background-color: #0B0B0E !important;
+    border-right: 1px solid var(--fp-border);
+}
+
+.app-sidebar .sidebar-brand,
+.app-sidebar-brand,
+.brand-link {
+    background: #0B0B0E !important;
+    border-bottom: 1px solid var(--fp-border) !important;
+    padding: 14px 18px;
+    color: var(--fp-accent) !important;
+}
+
+.app-sidebar .brand-text,
+.app-sidebar-brand .brand-text,
+.brand-link .brand-text {
+    color: var(--fp-accent) !important;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+}
+
+.app-sidebar .nav-link,
+.nav-sidebar .nav-link {
+    border-radius: 8px;
+    margin: 2px 8px;
+    color: var(--fp-text-muted) !important;
+    transition: background 0.15s, color 0.15s;
+}
+
+.app-sidebar .nav-link:hover,
+.nav-sidebar .nav-link:hover {
+    background: rgba(255, 255, 255, 0.04) !important;
+    color: var(--fp-text) !important;
+}
+
+.app-sidebar .nav-link.active,
+.nav-sidebar .nav-link.active {
+    background: var(--fp-accent) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(230, 57, 70, 0.35);
+}
+
+.app-sidebar .nav-treeview .nav-link,
+.nav-sidebar .nav-treeview .nav-link {
+    color: var(--fp-text-muted) !important;
+}
+
+.app-sidebar .nav-treeview .nav-link.active,
+.nav-sidebar .nav-treeview .nav-link.active {
+    background: rgba(230, 57, 70, 0.18) !important;
+    color: var(--fp-accent) !important;
+    box-shadow: none;
+}
+
+.user-panel .info a,
+.app-sidebar .user-panel a {
+    color: var(--fp-text) !important;
+    font-weight: 600;
+}
+
+/* ----- Top navbar (AdminLTE 4) ----- */
+.app-header,
+.main-header.navbar {
+    background: rgba(15, 15, 18, 0.85) !important;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-bottom: 1px solid var(--fp-border) !important;
+}
+
+.app-header .nav-link,
+.main-header.navbar .nav-link {
+    color: var(--fp-text-muted) !important;
+}
+
+.app-header .nav-link:hover,
+.main-header.navbar .nav-link:hover {
+    color: var(--fp-text) !important;
+}
+
+/* ----- Header de contenido (titulo de pagina + breadcrumb derecho) ----- */
+.app-content-header {
+    padding: 24px 0 12px;
+}
+
+.app-content-header h1,
+.app-content-header h2,
+.app-content-header h3,
+.app-content-header h4,
+.app-content-header h5,
+.app-content-header .mb-0 {
+    color: var(--fp-text) !important;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+    margin-bottom: 0;
+}
+
+/* ----- Modulos del dashboard (Acciones recientes, etc.) ----- */
+.module {
+    color: var(--fp-text);
+}
+
+.module h2,
+.module h3,
+.module h4,
+.module .mb-3 {
+    color: var(--fp-text) !important;
+    font-weight: 700;
+}
+
+.module p,
+.module ul,
+.module ul li {
+    color: var(--fp-text-muted) !important;
+}
+
+#recent-actions-module h4,
+#recent-actions-module p,
+#recent-actions-module a {
+    color: var(--fp-text) !important;
+}
+
+#recent-actions-module p {
+    color: var(--fp-text-muted) !important;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* ----- Footer (AdminLTE 4 usa <footer class="app-footer">) ----- */
+.app-footer,
+.main-footer,
+footer.app-footer {
+    background-color: var(--fp-bg) !important;
+    border-top: 1px solid var(--fp-border) !important;
+    color: var(--fp-text-muted) !important;
+    padding: 18px 24px !important;
+}
+
+.app-footer b,
+.app-footer strong,
+.main-footer b,
+.main-footer strong,
+footer b,
+footer strong {
+    color: var(--fp-text) !important;
+    font-weight: 700;
+}
+
+/* ----- Botones por defecto: garantizar contraste ----- */
+.btn {
+    font-weight: 600;
+}
+
+.btn-info {
+    background-color: #2A8CB7 !important;
+    border-color: #2A8CB7 !important;
+    color: #fff !important;
+}
+
+.btn-info:hover {
+    background-color: #2576A0 !important;
+    border-color: #2576A0 !important;
+    color: #fff !important;
+}
+
+.btn-success {
+    background-color: var(--fp-success) !important;
+    border-color: var(--fp-success) !important;
+    color: #fff !important;
+}
+
+.btn-success:hover {
+    background-color: #27ae60 !important;
+    border-color: #27ae60 !important;
+    color: #fff !important;
+}
+
+/* Links en cards del dashboard que se ven como botones text-only */
+.card a:not(.btn),
+.module a:not(.btn) {
+    color: var(--fp-accent);
+}
+
+/* ----- Tarjetas / cards ----- */
+.card,
+.callout,
+.small-box {
+    background-color: var(--fp-card) !important;
+    border: 1px solid var(--fp-border) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    color: var(--fp-text);
+}
+
+.card-header {
+    background-color: transparent !important;
+    border-bottom: 1px solid var(--fp-border) !important;
+    color: var(--fp-text);
+    font-weight: 600;
+    letter-spacing: -0.2px;
+}
+
+.card-title {
+    color: var(--fp-text);
+}
+
+/* ----- Botones ----- */
+.btn-danger,
+.btn-primary {
+    background-color: var(--fp-accent) !important;
+    border-color: var(--fp-accent) !important;
+    color: #fff !important;
+    font-weight: 600;
+    letter-spacing: -0.1px;
+    box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
+}
+
+.btn-danger:hover,
+.btn-primary:hover,
+.btn-danger:focus,
+.btn-primary:focus {
+    background-color: var(--fp-accent-hover) !important;
+    border-color: var(--fp-accent-hover) !important;
+    box-shadow: 0 6px 16px rgba(230, 57, 70, 0.4) !important;
+}
+
+.btn-outline-light {
+    border-color: var(--fp-border-strong) !important;
+    color: var(--fp-text) !important;
+}
+
+.btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: var(--fp-text-muted) !important;
+}
+
+/* Botones de Django admin (Guardar / Guardar y continuar / Eliminar) */
+.submit-row input[type="submit"],
+.submit-row a.deletelink {
+    border-radius: 10px !important;
+    padding: 8px 18px !important;
+    font-weight: 600;
+}
+
+.submit-row input.default {
+    background: var(--fp-accent) !important;
+    border-color: var(--fp-accent) !important;
+}
+
+/* ----- Tablas ----- */
+.table {
+    color: var(--fp-text);
+    border-color: var(--fp-border);
+}
+
+.table thead th {
+    background-color: #0B0B0E !important;
+    color: var(--fp-text-muted) !important;
+    border-color: var(--fp-border) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.table tbody tr {
+    background-color: var(--fp-card) !important;
+}
+
+.table tbody tr:hover {
+    background-color: var(--fp-card-elev) !important;
+}
+
+.table tbody td {
+    border-color: var(--fp-border) !important;
+}
+
+/* ----- Inputs ----- */
+.form-control,
+.form-select,
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--multiple {
+    background-color: var(--fp-card) !important;
+    border: 1px solid var(--fp-border-strong) !important;
+    color: var(--fp-text) !important;
+    border-radius: 10px !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--fp-accent) !important;
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.18) !important;
+    background-color: var(--fp-card) !important;
+    color: var(--fp-text) !important;
+}
+
+.form-control::placeholder {
+    color: var(--fp-text-muted) !important;
+}
+
+label {
+    color: var(--fp-text-muted) !important;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+
+/* ----- Links generales del contenido ----- */
+.content-wrapper a:not(.btn):not(.nav-link):not(.dropdown-item) {
+    color: var(--fp-accent);
+}
+
+.content-wrapper a:not(.btn):not(.nav-link):not(.dropdown-item):hover {
+    color: var(--fp-accent-hover);
+    text-decoration: underline;
+}
+
+/* ----- Headings y titulos de pagina ----- */
+.content-header h1,
+.content-header h2,
+.content-header h3,
+.content-header .page-title,
+h1, h2, h3, h4, h5, h6 {
+    color: var(--fp-text) !important;
+}
+
+.content-header {
+    padding-top: 18px;
+}
+
+/* ----- Breadcrumbs ----- */
+.breadcrumb {
+    background: transparent !important;
+    padding: 0 !important;
+    font-size: 13px;
+}
+
+.breadcrumb-item,
+.breadcrumb-item a {
+    color: var(--fp-text-muted) !important;
+}
+
+.breadcrumb-item a:hover {
+    color: var(--fp-text) !important;
+}
+
+.breadcrumb-item.active {
+    color: var(--fp-text) !important;
+    font-weight: 600;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    color: var(--fp-text-muted) !important;
+    opacity: 0.5;
+}
+
+/* ----- Texto muted en cualquier contexto ----- */
+.text-muted,
+.help,
+.help-block,
+.helptext,
+small,
+.small {
+    color: var(--fp-text-muted) !important;
+}
+
+/* ----- Tabs (General / Informacion personal / Permisos / ...) ----- */
+.nav-tabs {
+    border-bottom: 1px solid var(--fp-border) !important;
+}
+
+.nav-tabs .nav-link {
+    color: var(--fp-text-muted) !important;
+    border: 1px solid transparent !important;
+    border-radius: 8px 8px 0 0 !important;
+    margin-bottom: -1px;
+    padding: 10px 18px;
+    font-weight: 600;
+}
+
+.nav-tabs .nav-link:hover {
+    color: var(--fp-text) !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-color: transparent !important;
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--fp-accent) !important;
+    background: var(--fp-card) !important;
+    border-color: var(--fp-border) var(--fp-border) var(--fp-card) !important;
+    border-bottom: 2px solid var(--fp-accent) !important;
+}
+
+/* ----- Botones secundarios del admin (Historial, etc.) ----- */
+.btn-default,
+.btn-secondary,
+.historylink,
+.button.default,
+input[type="submit"]:not(.default):not(.btn-danger):not(.btn-primary) {
+    background: var(--fp-card-elev) !important;
+    border: 1px solid var(--fp-border-strong) !important;
+    color: var(--fp-text) !important;
+    border-radius: 10px !important;
+    font-weight: 600;
+}
+
+.btn-default:hover,
+.btn-secondary:hover,
+.historylink:hover {
+    background: var(--fp-card) !important;
+    border-color: var(--fp-accent) !important;
+    color: var(--fp-accent) !important;
+}
+
+/* ----- Acciones recientes / dashboard widgets ----- */
+.dashboard-list,
+.recent-actions,
+ul.recent-actions {
+    color: var(--fp-text);
+}
+
+.dashboard-list a,
+.recent-actions a,
+ul.recent-actions li a {
+    color: var(--fp-text) !important;
+}
+
+.dashboard-list a:hover,
+.recent-actions a:hover,
+ul.recent-actions li a:hover {
+    color: var(--fp-accent) !important;
+}
+
+.changelink {
+    color: var(--fp-text-muted) !important;
+}
+
+.changelink::before {
+    color: var(--fp-text-muted) !important;
+}
+
+/* Mensaje "Ninguno disponible" / vacio en dashboard */
+.module ul li,
+.module p,
+.empty,
+.dashboard .module table tbody tr td {
+    color: var(--fp-text) !important;
+}
+
+/* ----- Botones de cambio en lista del admin (Anadir / Modificar) ----- */
+.addlink,
+.changelink-card {
+    color: #fff !important;
+}
+
+/* ----- Card title (Autenticacion y autorizacion / Menu / Acciones recientes) ----- */
+.card-title,
+.card-header .card-title,
+h3.card-title,
+.module h2,
+.module caption,
+caption {
+    color: var(--fp-text) !important;
+    font-weight: 700;
+    background: transparent !important;
+}
+
+/* ----- Sidebar header (cristian) ----- */
+.user-panel,
+.user-panel .info {
+    color: var(--fp-text) !important;
+}
+
+/* ----- Mensajes de Django (success / error / warning) ----- */
+.alert,
+.messagelist li {
+    border-radius: 10px !important;
+    border: 1px solid var(--fp-border) !important;
+}
+
+/* ----- Paginacion ----- */
+.paginator a,
+.pagination .page-link {
+    background: var(--fp-card) !important;
+    border-color: var(--fp-border) !important;
+    color: var(--fp-text) !important;
+}
+
+.pagination .page-item.active .page-link {
+    background: var(--fp-accent) !important;
+    border-color: var(--fp-accent) !important;
+    color: #fff !important;
+}
+
+/* ----- Filtros laterales (changelist) ----- */
+#changelist-filter {
+    background: var(--fp-card) !important;
+    border: 1px solid var(--fp-border) !important;
+    border-radius: 12px;
+}
+
+#changelist-filter h2,
+#changelist-filter h3 {
+    color: var(--fp-text-muted) !important;
+}
+
+#changelist-filter li.selected a {
+    color: var(--fp-accent) !important;
+    font-weight: 700;
+}
+
+/* ----- Badges custom de productos (mantenidos del CSS previo) ----- */
+.fp-admin-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 11px;
+    border: 1px solid transparent;
+}
+
+.fp-admin-badge--available {
+    background: rgba(46, 204, 113, 0.16);
+    color: var(--fp-success);
+    border-color: rgba(46, 204, 113, 0.3);
+}
+
+.fp-admin-badge--unavailable {
+    background: rgba(150, 150, 160, 0.18);
+    color: var(--fp-text-muted);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ----- Pantalla de login ----- */
+.login-page,
+.login-box,
+.login-card-body {
+    background-color: var(--fp-bg) !important;
+}
+
+.login-card-body {
+    background-color: var(--fp-card) !important;
+    border: 1px solid var(--fp-border);
+    border-radius: 16px !important;
+    padding: 32px !important;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+}
+
+.login-logo a,
+.login-logo {
+    color: var(--fp-accent) !important;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+}
+
+/* ----- Modales ----- */
+.modal-content {
+    background-color: var(--fp-card) !important;
+    border: 1px solid var(--fp-border) !important;
+    border-radius: 14px !important;
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--fp-border) !important;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--fp-border) !important;
+}
+
+/* ----- Footer del admin ----- */
+.main-footer {
+    border-top: 1px solid var(--fp-border) !important;
+    color: var(--fp-text-muted) !important;
+    background-color: var(--fp-bg) !important;
+}
+
+/* ----- Scrollbar ----- */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--fp-card-elev);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--fp-bg);
+}
