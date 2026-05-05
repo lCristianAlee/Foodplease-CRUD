@@ -6,12 +6,12 @@ from .models import Producto
 
 @admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):
-    list_display = ("nombre", "precio_formateado", "estado_disponibilidad")
-    list_filter = ("disponible",)
+    list_display = ("nombre", "categoria", "precio_formateado", "estado_disponibilidad")
+    list_filter = ("categoria", "disponible")
     search_fields = ("nombre", "descripcion")
     list_per_page = 25
     fieldsets = (
-        ("Información del plato", {"fields": ("nombre", "descripcion")}),
+        ("Información del plato", {"fields": ("nombre", "descripcion", "categoria", "imagen_url")}),
         ("Comercial", {"fields": ("precio", "disponible")}),
     )
 
