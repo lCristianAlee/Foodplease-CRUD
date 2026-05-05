@@ -1,122 +1,141 @@
 # FoodPlease CRUD
 
-FoodPlease es una aplicación web backend desarrollada con Django, estructurada en 3 capas (Modelo, Vista, Controlador/Template), encargada de la gestión del inventario y menú de un restaurante o servicio de delivery.
+FoodPlease es un MVP web desarrollado con Django para gestionar el menú de un restaurante o servicio de delivery. El proyecto demuestra un backend simple con arquitectura por capas, un panel administrador para el local y una vista pública conectada a los datos.
 
-## Características
+## Alcance funcional del MVP
 
-- **Arquitectura de 3 capas** aplicadas con el framework web Django.
-- **CRUD funcional** a través del Panel de Administración.
-- **Vistas Basadas en Clases (CBV):** emplea `ListView` para renderizar el menú completo y `DetailView` para acceder dinámicamente a la ficha de cada plato.
-- Interfaz conectada al backend mediante sistema de _templates_ heredables HTML pre-construido.
+- CRUD de platos desde el panel de administración de Django.
+- Menú público en `/menu/`.
+- Ficha de detalle por plato.
+- Disponibilidad visible para el cliente.
+- Categorías funcionales con filtro por URL.
+- Imagen opcional por URL, con placeholder automático cuando no se informa imagen.
+- Redirección desde `/` hacia `/menu/` para facilitar la demo.
+- Enlaces reales a mockups navegables de app cliente y app repartidor.
 
----
+Los prototipos móviles son parte de la propuesta de integración móvil/web. No implementan lógica backend completa porque el alcance académico pide primeras interacciones de navegación, no una app distribuible terminada.
 
-## Guía de instalación y ejecución local
+## Tecnologías
 
-Para clonar y correr el proyecto en sus propias máquinas locales, tus compañeros deben seguir los siguientes pasos:
+- Python
+- Django 4.2
+- SQLite local para desarrollo
+- Django Admin con Jazzmin
+- HTML templates y CSS
+
+## Instalación y ejecución local
 
 ### 1. Clonar el repositorio
-Abre tu terminal y ejecuta el siguiente comando:
+
 ```bash
-git clone <URL_DEL_REPOSITORIO>
-cd <nombre-de-la-carpeta>
+git clone https://github.com/lCristianAlee/Foodplease-CRUD.git
+cd Foodplease-CRUD
 ```
 
-### 2. Crear un entorno virtual
-Se recomienda utilizar un entorno virtual para aislar las dependencias del proyecto.
-- **Mac / Linux:**
-  ```bash
-  python3 -m venv venv
-  source venv/bin/activate
-  ```
-- **Windows:**
-  ```bash
-  python -m venv venv
-  venv\Scripts\activate
-  ```
+### 2. Crear entorno virtual
 
-### 3. Instalar las dependencias
-Instala los módulos necesarios definidos en el archivo `requirements.txt`:
+Windows:
+
+```powershell
+python -m venv venv
+.\venv\Scripts\activate
+```
+
+Mac / Linux:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 3. Instalar dependencias
+
 ```bash
 pip install -r requirements.txt
 ```
 
 ### 4. Configurar variables de entorno
-La configuración sensible (clave secreta, modo debug, hosts permitidos) se carga desde un archivo `.env` que **no se versiona**. Copia la plantilla y ajusta los valores:
-```bash
-# Mac / Linux
-cp .env.example .env
-# Windows (PowerShell)
+
+```powershell
 Copy-Item .env.example .env
 ```
-Para producción, genera una `DJANGO_SECRET_KEY` propia:
+
+En Mac / Linux:
+
 ```bash
-python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+cp .env.example .env
 ```
 
-### 5. Configurar la base de datos local
-Por buenas prácticas, la base de datos SQL no se sube a Github. La primera vez debes generarla aplicando las migraciones:
+Para producción, genera una `DJANGO_SECRET_KEY` propia y cambia `DJANGO_DEBUG=False`.
+
+### 5. Crear base de datos local
+
 ```bash
-python manage.py makemigrations
 python manage.py migrate
 ```
 
+La base de datos se crea como `db.sqlite3` en la raíz del proyecto. Este archivo no se sube a GitHub.
+
 ### 6. Crear superusuario
-Para tener gestión sobre los platos (Crear, Leer, Actualizar, Borrar), necesitas un usuario administrador en tu sistema local:
+
 ```bash
 python manage.py createsuperuser
 ```
-> Sigue las instrucciones de la terminal e ingresa un nombre de usuario, correo y contraseña. *(La contraseña no se mostrará mientras escribes).*
 
-### 7. Ejecutar el servidor
-Finalmente, arranca la aplicación:
+### 7. Ejecutar servidor
+
 ```bash
 python manage.py runserver
 ```
 
-### 8. Ejecutar la suite de tests
+Rutas principales:
+
+- `http://127.0.0.1:8000/` redirige al menú.
+- `http://127.0.0.1:8000/menu/` muestra el menú público.
+- `http://127.0.0.1:8000/admin/` abre el panel administrador.
+
+## Cómo probar el CRUD
+
+1. Entrar a `http://127.0.0.1:8000/admin/`.
+2. Iniciar sesión con el superusuario.
+3. Crear platos con nombre, descripción, categoría, precio, disponibilidad e imagen URL opcional.
+4. Abrir `http://127.0.0.1:8000/menu/` y confirmar que los platos aparecen.
+5. Probar filtros: `Todos`, `Pastas`, `Carnes`, `Pescados`, `Bebidas`, `Postres`, `Otros`.
+6. Entrar al detalle de un plato.
+7. Cambiar disponibilidad o precio desde el admin y verificar el cambio en el menú.
+8. Borrar un plato y confirmar que deja de aparecer.
+
+## Tests
+
 ```bash
 python manage.py test menu
 ```
 
----
+La suite cubre modelo, listado, filtro por categoría, imagen URL, placeholder, detalle, links a mockups, seguridad básica del admin y redirección desde `/`.
 
-## Cómo utilizar y probar el CRUD
+## Mockups navegables
 
-Una vez iniciado el servidor, hay dos URLs importantes:
+- App móvil del cliente: https://lcristianalee.github.io/Foodplease-CRUD/mockups/mobile-prototype/
+- App móvil del repartidor: https://lcristianalee.github.io/Foodplease-CRUD/mockups/driver-prototype/
+- Web pública: https://lcristianalee.github.io/Foodplease-CRUD/mockups/web-prototype/
 
-### 1. Panel de Administración `/admin/`
-Ve a la ruta local `http://127.0.0.1:8000/admin/`.
-Ingresa con el superusuario que creaste en el **paso 6**. Podrás realizar todo lo siguiente:
+El código fuente de los prototipos está en `docs/mockups/`. También se pueden abrir localmente sirviéndolos por HTTP:
 
-- **Crear:** click en el modelo **Productos** → **Añadir**. Completa nombre, precio, descripción e indica si está disponible. Guarda.
-- **Leer:** la lista misma muestra desde la base de datos lo grabado con anterioridad.
-- **Actualizar:** entra al artículo para editar la descripción, o desde la lista inicial edita directamente disponibilidad y precio y luego "Guardar".
-- **Borrar:** seleccionando la casilla al lado izquierdo del producto en la tabla, el desplegable te dará la opción para borrar un ítem permanentemente.
+```powershell
+cd docs/mockups
+python -m http.server 8001
+```
 
-### 2. Panel Público (Menú) `/menu/`
-Ve a la ruta base de lectura `http://127.0.0.1:8000/menu/`.
-Aquí verás presentados los resultados provenientes de la base de datos:
-- Menú general.
-- Interfaz de "Detalle" tras cliquear en algún plato.
+Luego abrir:
 
----
+- `http://localhost:8001/mobile-prototype/`
+- `http://localhost:8001/driver-prototype/`
+- `http://localhost:8001/web-prototype/`
 
 ## Decisiones de diseño
 
-Las decisiones arquitectónicas se documentaron en [`docs/adr/`](docs/adr/):
+Las decisiones arquitectónicas se documentan en `docs/adr/`:
 
-- [ADR-001 — Framework web](docs/adr/adr-001-framework-web.md)
-- [ADR-002 — Base de datos](docs/adr/adr-002-base-de-datos.md)
-- [ADR-003 — Panel administrativo](docs/adr/adr-003-panel-administrativo-jazzmin.md)
-
-## Mockups
-
-Las pantallas están publicadas en GitHub Pages para revisión sin necesidad de clonar el repositorio:
-
-- **App móvil del cliente:** https://lcristianalee.github.io/Foodplease-CRUD/mockups/mobile-prototype/
-- **App móvil del repartidor:** https://lcristianalee.github.io/Foodplease-CRUD/mockups/driver-prototype/
-- **Web pública (escritorio):** https://lcristianalee.github.io/Foodplease-CRUD/mockups/web-prototype/
-
-El código fuente de cada prototipo está en [`docs/mockups/`](docs/mockups/).
-También se pueden abrir localmente sirviéndolos con `python -m http.server` desde esa carpeta.
+- `docs/adr/adr-001-framework-web.md`
+- `docs/adr/adr-002-base-de-datos.md`
+- `docs/adr/adr-003-panel-administrativo-jazzmin.md`
