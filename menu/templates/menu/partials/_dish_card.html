@@ -2,14 +2,17 @@
 {% load menu_extras %}
 <a href="{% url 'menu:detalle' producto.pk %}"
    class="dish-card {% if compact %}dish-card--compact{% endif %}"
+   data-menu-card
+   data-category="{{ producto.categoria }}"
    aria-label="Ver detalle de {{ producto.nombre }}">
     {% include 'menu/partials/_dish_image.html' with producto=producto extra_class='' %}
     <div class="dish-card__body">
         <div class="dish-card__title">{{ producto.nombre }}</div>
+        <div class="dish-card__meta">{{ producto.get_categoria_display }}</div>
         {% if producto.descripcion %}
             <div class="dish-card__desc">{{ producto.descripcion }}</div>
         {% else %}
-            <div class="dish-card__desc">Plato recién horneado, listo para llegar a tu mesa.</div>
+            <div class="dish-card__desc">Plato recién preparado, listo para llegar a tu mesa.</div>
         {% endif %}
         <div class="dish-card__row">
             <span class="dish-card__price">${{ producto.precio|precio_clp }}</span>

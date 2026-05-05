@@ -1,6 +1,6 @@
 {% extends 'menu/base.html' %}
 
-{% block title %}Menú — FoodPlease{% endblock %}
+{% block title %}Menú - FoodPlease{% endblock %}
 
 {% block content %}
     <section class="hero" aria-labelledby="hero-title">
@@ -9,16 +9,16 @@
             <div>
                 <div class="hero__pill">
                     <span class="hero__pill-dot" aria-hidden="true"></span>
-                    Cocina abierta · 11:00 — 23:00
+                    Cocina abierta · 11:00 - 23:00
                 </div>
                 <h1 id="hero-title" class="hero__title">
                     Tu menú favorito,<br>siempre <span class="hero__title-accent">fresco.</span>
                 </h1>
                 <p class="hero__subtitle">
-                    Explora nuestra carta completa, conoce los ingredientes y haz tu pedido desde la app móvil de FoodPlease.
+                    Explora nuestra carta completa, conoce los ingredientes y encuentra tu próximo pedido favorito.
                 </p>
                 <div class="hero__cta">
-                    <a href="#nuestro-menu" class="btn btn--primary btn--lg">Ver menú →</a>
+                    <a href="#nuestro-menu" class="btn btn--primary btn--lg">Ver menú &rarr;</a>
                     <a href="#descargar" class="btn btn--secondary btn--lg">Descargar app</a>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                             </svg>
                         </div>
                         <div class="hero-card__title">Pide desde<br>tu celular.</div>
-                        <p class="hero-card__caption">App disponible en iOS y Android.</p>
+                        <p class="hero-card__caption">Guarda tus favoritos y sigue tu pedido en tiempo real.</p>
                     </div>
                     <div class="hero-card__bottom">
                         <span class="hero__pill-dot"></span>
@@ -46,13 +46,19 @@
 
     <section class="section section--top" aria-label="Categorías del menú">
         <div class="section__inner">
-            <div class="chips">
-                <button type="button" class="chip is-active">Todos</button>
-                <button type="button" class="chip">Pastas</button>
-                <button type="button" class="chip">Carnes</button>
-                <button type="button" class="chip">Pescados</button>
-                <button type="button" class="chip">Bebidas</button>
-                <button type="button" class="chip">Postres</button>
+            <div class="chips" data-category-filters>
+                <a href="{% url 'menu:lista' %}"
+                   class="chip {% if not categoria_actual %}is-active{% endif %}"
+                   data-category-filter="">
+                    Todos
+                </a>
+                {% for categoria in categorias %}
+                    <a href="{% url 'menu:lista' %}?categoria={{ categoria.valor }}"
+                       class="chip {% if categoria_actual == categoria.valor %}is-active{% endif %}"
+                       data-category-filter="{{ categoria.valor }}">
+                        {{ categoria.etiqueta }}
+                    </a>
+                {% endfor %}
             </div>
         </div>
     </section>
@@ -63,10 +69,12 @@
                 <div>
                     <h2 id="menu-title" class="menu-header__title">Nuestro menú</h2>
                     <p class="menu-header__hint">
-                        {{ productos|length }} plato{{ productos|length|pluralize:"s" }} preparado{{ productos|length|pluralize:"s" }} con ingredientes seleccionados.
+                        <span data-menu-count>{{ productos|length }}</span>
+                        <span data-menu-count-label>plato{{ productos|length|pluralize:"s" }}</span>
+                        preparado{{ productos|length|pluralize:"s" }} con ingredientes seleccionados.
                     </p>
                 </div>
-                <div class="menu-header__aside">Pídelos desde la app</div>
+                <div class="menu-header__aside">Actualizado por el local</div>
             </header>
 
             {% if productos %}
@@ -74,12 +82,51 @@
                     {% for producto in productos %}
                         {% include 'menu/partials/_dish_card.html' with producto=producto %}
                     {% endfor %}
+                    <div class="dish-card dish-card--empty" data-menu-empty-filter hidden>
+                        <div class="dish-image" role="img" aria-label="Sin platos para esta categoría">
+                            <span class="dish-image__label">Sin resultados</span>
+                        </div>
+                        <div class="dish-card__body">
+                            <div class="dish-card__title">No hay platos en esta categoría</div>
+                            <div class="dish-card__desc">
+                                Prueba con otra categoría o vuelve a ver todo el menú.
+                            </div>
+                            <div class="dish-card__row">
+                                <span class="dish-card__price">FoodPlease</span>
+                                <span class="badge badge--unavailable">Sin platos</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             {% else %}
                 <div class="empty-state">
                     Aún no hay platos registrados en el menú.
                 </div>
             {% endif %}
+        </div>
+    </section>
+
+    <section class="section section--info" id="nosotros" aria-labelledby="nosotros-title">
+        <div class="section__inner info-panel">
+            <div>
+                <p class="section-kicker">Sobre nosotros</p>
+                <h2 id="nosotros-title" class="info-panel__title">FoodPlease conecta menú, local y experiencia móvil.</h2>
+            </div>
+            <p class="info-panel__text">
+                FoodPlease permite que el local mantenga su carta actualizada y que cada cliente revise disponibilidad, categorías y detalle de cada plato antes de pedir.
+            </p>
+        </div>
+    </section>
+
+    <section class="section section--info" id="contacto" aria-labelledby="contacto-title">
+        <div class="section__inner info-panel info-panel--compact">
+            <div>
+                <p class="section-kicker">Contacto</p>
+                <h2 id="contacto-title" class="info-panel__title">Estamos listos para ayudarte</h2>
+            </div>
+            <p class="info-panel__text">
+                Escríbenos a contacto@foodplease.cl para resolver dudas sobre pedidos, disponibilidad o atención de locales asociados.
+            </p>
         </div>
     </section>
 

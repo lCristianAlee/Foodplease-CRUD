@@ -1,7 +1,7 @@
-{# Footer institucional con 4 columnas. #}
+{# Footer acotado a las secciones publicas del sitio. #}
 <footer class="site-footer">
     <div class="site-footer__inner">
-        <div class="site-footer__cols">
+        <div class="site-footer__cols site-footer__cols--compact">
             <div>
                 <a href="{% url 'menu:lista' %}" class="site-footer__brand">
                     {% include 'menu/partials/_brand_logo.html' %}
@@ -13,24 +13,15 @@
             <div>
                 <div class="site-footer__col-title">Producto</div>
                 <div class="site-footer__links">
-                    <a href="{% url 'menu:lista' %}">Menú</a>
-                    <a href="#descargar">App móvil</a>
-                    <a href="#sucursales">Sucursales</a>
+                    <a href="{% url 'menu:lista' %}#nuestro-menu">Menú</a>
+                    <a href="{% url 'menu:app_clientes' %}" target="_blank" rel="noopener">App móvil</a>
                 </div>
             </div>
             <div>
                 <div class="site-footer__col-title">Empresa</div>
                 <div class="site-footer__links">
-                    <a href="#nosotros">Sobre nosotros</a>
-                    <a href="#trabaja-con-nosotros">Trabaja con nosotros</a>
-                    <a href="#contacto">Contacto</a>
-                </div>
-            </div>
-            <div>
-                <div class="site-footer__col-title">Legal</div>
-                <div class="site-footer__links">
-                    <a href="#terminos">Términos y condiciones</a>
-                    <a href="#privacidad">Política de privacidad</a>
+                    <a href="{% url 'menu:lista' %}#nosotros">Sobre nosotros</a>
+                    <a href="{% url 'menu:lista' %}#contacto">Contacto</a>
                 </div>
             </div>
         </div>

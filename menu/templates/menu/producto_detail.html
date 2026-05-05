@@ -1,15 +1,17 @@
 {% extends 'menu/base.html' %}
 {% load menu_extras %}
 
-{% block title %}{{ producto.nombre }} — FoodPlease{% endblock %}
+{% block title %}{{ producto.nombre }} - FoodPlease{% endblock %}
 
 {% block content %}
     <nav class="breadcrumb" aria-label="Migas de pan">
         <div class="breadcrumb__inner">
             <a href="{% url 'menu:lista' %}">Inicio</a>
-            <span class="breadcrumb__sep" aria-hidden="true">›</span>
-            <a href="{% url 'menu:lista' %}">Menú</a>
-            <span class="breadcrumb__sep" aria-hidden="true">›</span>
+            <span class="breadcrumb__sep" aria-hidden="true">&rsaquo;</span>
+            <a href="{% url 'menu:lista' %}#nuestro-menu">Menú</a>
+            <span class="breadcrumb__sep" aria-hidden="true">&rsaquo;</span>
+            <a href="{% url 'menu:lista' %}?categoria={{ producto.categoria }}">{{ producto.get_categoria_display }}</a>
+            <span class="breadcrumb__sep" aria-hidden="true">&rsaquo;</span>
             <span class="breadcrumb__current">{{ producto.nombre }}</span>
         </div>
     </nav>
@@ -23,6 +25,7 @@
             <div>
                 {% include 'menu/partials/_badge_disponibilidad.html' with producto=producto size='lg' %}
 
+                <div class="detail__category">{{ producto.get_categoria_display }}</div>
                 <h1 class="detail__title">{{ producto.nombre }}</h1>
                 <div class="detail__price">${{ producto.precio|precio_clp }}</div>
 
@@ -36,14 +39,14 @@
                 <div class="detail__promo">
                     <div>
                         <div class="detail__promo-title">Pídelo desde nuestra app móvil</div>
-                        <div class="detail__promo-sub">Sigue tu pedido en tiempo real.</div>
+                        <div class="detail__promo-sub">Guarda favoritos y sigue tu pedido en tiempo real.</div>
                     </div>
                     <div class="detail__promo-buttons">
                         {% include 'menu/partials/_store_buttons.html' %}
                     </div>
                 </div>
 
-                <a href="{% url 'menu:lista' %}" class="btn btn--secondary detail__back">
+                <a href="{% url 'menu:lista' %}#nuestro-menu" class="btn btn--secondary detail__back">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                         <path d="M9 3L5 7l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>

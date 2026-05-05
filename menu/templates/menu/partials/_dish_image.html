@@ -1,9 +1,18 @@
-{# Placeholder mientras no exista ImageField en Producto.
-   El style= solo pasa la variable CSS --dish-hue, no declara propiedades. #}
 {% load menu_extras %}
-<div class="dish-image {{ extra_class|default:'' }}"
-     style="--dish-hue: {{ producto.id|hue_para }}"
-     role="img"
-     aria-label="Imagen referencial del plato {{ producto.nombre }}">
-    <span class="dish-image__label">{{ producto.nombre }}</span>
-</div>
+{% if producto.imagen_url %}
+    <div class="dish-image dish-image--photo {{ extra_class|default:'' }}">
+        <img
+            src="{{ producto.imagen_url }}"
+            alt="Imagen referencial del plato {{ producto.nombre }}"
+            class="dish-image__img"
+            loading="lazy"
+        >
+    </div>
+{% else %}
+    <div class="dish-image {{ extra_class|default:'' }}"
+         style="--dish-hue: {{ producto.id|hue_para }}"
+         role="img"
+         aria-label="Imagen referencial del plato {{ producto.nombre }}">
+        <span class="dish-image__label">{{ producto.nombre }}</span>
+    </div>
+{% endif %}
